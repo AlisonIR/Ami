@@ -8,12 +8,24 @@ import gsap from 'gsap';
 const scene = new THREE.Scene();
 
 //Create the sphere
+const x = 0, y = 0;
 
-const geometry = new THREE.SphereGeometry(3, 64, 64);
+const heartShape = new THREE.Shape();
 
-const material = new THREE.MeshStandardMaterial({
-  color:'#887635',
-  roughness: 0.2
+heartShape.moveTo( x + 5, y + 5 );
+heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+
+
+const geometry = new THREE.ShapeGeometry(heartShape);
+
+const material = new THREE.MeshBasicMaterial({
+  color:'#FF0000',
+  roughness: 0.5
 })
 
 const mesh = new THREE.Mesh(geometry, material);
@@ -26,14 +38,14 @@ const sizes = {
 }
 
 //Light
-const light = new THREE.PointLight(0xffffff, 1, 100)
-light.position.z = 20
-light.intensity = 1.25
+const light = new THREE.PointLight(0xffffff, 1, 50)
+light.position.z = 5
+light.intensity = 1
 scene.add(light)
 
 //Camera
-const camera = new THREE.PerspectiveCamera(45, sizes.width/ sizes.height, 0.1, 100)
-camera.position.z = 20
+const camera = new THREE.PerspectiveCamera(60, sizes.width/ sizes.height, 0.1, 100)
+camera.position.z = 65
 scene.add(camera)
 
 
@@ -50,7 +62,7 @@ controls.enableDamping = true
 controls.enablePan = false
 controls.enableZoom = false
 controls.autoRotate = true
-controls.autoRotateSpeed = 20
+controls.autoRotateSpeed = 60
 
 
 //Resize
